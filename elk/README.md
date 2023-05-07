@@ -38,13 +38,13 @@ docker container run -d --name elasticsearch --network elk -p 9200:9200 -p 9300:
 Criando o container do Kibana:
 
 ```bash
-docker container run -d --name kibana --network elk -p 5601:5601 --restart always -e "ELASTICSEARCH_HOSTS=http://elastic:9200" -e XPACK_GRAPH_ENABLED=true -e XPACK_WATCHER_ENABLED=true -e XPACK_ML_ENABLED=true -e XPACK_MONITORING_ENABLED=true -e XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED kibana:$VERSAO
+docker container run -d --name kibana --network elk -p 5601:5601 --restart always -e "ELASTICSEARCH_HOSTS=http://elasticsearch:9200" -e XPACK_GRAPH_ENABLED=true -e XPACK_WATCHER_ENABLED=true -e XPACK_ML_ENABLED=true -e XPACK_MONITORING_ENABLED=true -e XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED kibana:$VERSAO
 ```
 
 Criando o container do Logstash:
 
 ```bash
-docker container run -d --name logstash --network elk --restart=always -e "XPACK.MONITORING.ELASTICSEARCH.HOSTS=http://elastic:9200" logstash:$VERSAO
+docker container run -d --name logstash --network elk --restart=always -e "XPACK.MONITORING.ELASTICSEARCH.HOSTS=http://elasticsearch:9200" logstash:$VERSAO
 ```
 
 Listando os índices criados pelo ElasticSearch:
